@@ -6,9 +6,6 @@ export default function Home() {
       <Typography variant="h4" component="h1" sx={{ color: '#222', fontWeight: 'bold', mb: 2 }}>
         All Movies
       </Typography>
-      <Typography variant="body1" sx={{ color: '#666' }}>
-        Homepage content will be placed here in Story #2.
-      </Typography>
     </Container>
   );
 }

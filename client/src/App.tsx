@@ -1,44 +1,45 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import {
+  Box,
+  CssBaseline,
+  ThemeProvider,
+} from '@mui/material';
+
+import muiTheme from './theme/theme';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './screens/Home';
 
-const muiTheme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: { main: '#1976D2' },
-    background: { default: '#F8F9FA' },
-  },
-  typography: {
-    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-  },
-});
-
 function App() {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={muiTheme}>
-        <CssBaseline />
+    <ThemeProvider theme={muiTheme}>
+      <CssBaseline />
 
+      <BrowserRouter>
         <Box
           sx={{
+            minHeight: '100vh',
             display: 'flex',
             flexDirection: 'column',
-            minHeight: '100vh',
-            backgroundColor: '#F8F9FA',
           }}
         >
-          <Header isLoggedIn={false} />
+          <Header />
 
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
+          <Box
+            component="main"
+            sx={{
+              flex: 1,
+            }}
+          >
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </Box>
 
           <Footer />
         </Box>
-      </ThemeProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

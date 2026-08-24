@@ -1,34 +1,94 @@
+import { Box, Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import './Footer.css';
 
 export default function Footer() {
   return (
-    <footer className="footer-container">
+    <Box
+      component="footer"
+      sx={{
+        mt: 'auto',
+        minHeight: 214,
+        px: 2,
+        py: 5,
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#FFFFFF',
+        background:
+          'linear-gradient(272.5deg, #003055 0%, #034A81 100.67%)',
+      }}
+    >
       {/* Logo */}
-      <RouterLink to="/" className="footer-logo">
+      <Typography
+        component={RouterLink}
+        to="/"
+        sx={{
+          color: 'primary.main',
+          fontSize: 24,
+          fontWeight: 800,
+          lineHeight: 1,
+          textDecoration: 'none',
+          mb: 3,
+        }}
+      >
         MMDB
-      </RouterLink>
+      </Typography>
 
       {/* Navigation Links */}
-      <nav className="footer-nav">
-        <RouterLink to="/about" className="footer-link">
+      <Box
+        component="nav"
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 4,
+          mb: 3,
+        }}
+      >
+        <Link
+          component={RouterLink}
+          to="/about"
+          color="inherit"
+        >
           About
-        </RouterLink>
-        <RouterLink to="/terms" className="footer-link">
+        </Link>
+
+        <Link
+          component={RouterLink}
+          to="/terms"
+          color="inherit"
+        >
           Terms of Use
-        </RouterLink>
-        <RouterLink to="/privacy" className="footer-link">
+        </Link>
+
+        <Link
+          component={RouterLink}
+          to="/privacy"
+          color="inherit"
+        >
           Privacy Policy
-        </RouterLink>
-        <RouterLink to="/help" className="footer-link">
+        </Link>
+
+        <Link
+          component={RouterLink}
+          to="/help"
+          color="inherit"
+        >
           Help
-        </RouterLink>
-      </nav>
+        </Link>
+      </Box>
 
       {/* Copyright */}
-      <p className="footer-copyright">
+      <Typography
+        variant="caption"
+        sx={{
+          color: '#FFFFFF',
+          opacity: 0.7,
+        }}
+      >
         © {new Date().getFullYear()} MMDB. All rights reserved.
-      </p>
-    </footer>
+      </Typography>
+    </Box>
   );
 }

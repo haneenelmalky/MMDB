@@ -1,19 +1,45 @@
-import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  Box,
+  CssBaseline,
+  ThemeProvider,
+} from '@mui/material';
+
+import muiTheme from './theme/theme';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './screens/Home';
 
 function App() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    fetch('http://localhost:3000')
-      .then((res) => res.text())
-      .then((data) => setMessage(data));
-  }, []);
-
   return (
-    <div>
-      <h1>My Project</h1>
-      <p>{message}</p>
-    </div>
+    <ThemeProvider theme={muiTheme}>
+      <CssBaseline />
+
+      <BrowserRouter>
+        <Box
+          sx={{
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <Header />
+
+          <Box
+            component="main"
+            sx={{
+              flex: 1,
+            }}
+          >
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </Box>
+
+          <Footer />
+        </Box>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

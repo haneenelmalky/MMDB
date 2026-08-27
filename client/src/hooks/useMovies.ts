@@ -37,7 +37,7 @@ export const useMovies = ({
 
     try {
       const response = await fetch(
-        `http://localhost:3000/movies?page=${page}&limit=${limit}&sortOrder=${sortOrder}`,
+        `http://localhost:3000/movies?page=${page}&limit=${limit}&order=${sortOrder}`,
       );
 
       if (!response.ok) {

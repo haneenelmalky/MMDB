@@ -1,31 +1,36 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Index } from 'typeorm';
 
 @Entity('movies')
 export class Movie {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'uuid' })
+  @Column({
+    type: 'uuid',
+    default: () => 'gen_random_uuid()',
+    unique: true,
+  })
   uuid!: string;
 
-  @Column()
+  @Column({ type: 'text' })
   title!: string;
 
-  @Column({ name: 'release_year' })
+  @Index('movies_year_idx')
+  @Column({ type: 'integer', name: 'release_year' })
   releaseYear!: number;
 
-  @Column({ name: 'runtime_minutes', nullable: true })
-  runtimeMinutes!: number;
+  @Column({ type: 'integer', name: 'runtime_minutes', nullable: true })
+  runtimeMinutes!: number | null;
 
-  @Column({ nullable: true })
-  overview!: string;
+  @Column({ type: 'text', nullable: true })
+  overview!: string | null;
 
-  @Column({ name: 'poster_url', nullable: true })
-  posterUrl!: string;
+  @Column({ type: 'text', name: 'poster_url', nullable: true })
+  posterUrl!: string | null;
 
-  @Column({ name: 'trailer_url', nullable: true })
-  trailerUrl!: string;
+  @Column({ type: 'text', name: 'trailer_url', nullable: true })
+  trailerUrl!: string | null;
 
-  @Column({ nullable: true })
-  language!: string;
+  @Column({ type: 'text', nullable: true })
+  language!: string | null;
 }

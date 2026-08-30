@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import type { MouseEvent } from 'react';
-
 import {
   AppBar,
   Toolbar,
@@ -9,16 +6,14 @@ import {
   InputBase,
   Box,
   Avatar,
-  Menu,
-  MenuItem,
   Container,
 } from '@mui/material';
 
 import SearchIcon from '@mui/icons-material/Search';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import DropDownMenu from './DropDownMenu';
 
 interface HeaderProps {
   isLoggedIn?: boolean;
@@ -33,20 +28,7 @@ export default function Header({
 }: HeaderProps) {
   const navigate = useNavigate();
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-
-  const handleOpenGenreMenu = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleCloseGenreMenu = () => {
-    setAnchorEl(null);
-  };
-
   const handleSelectGenre = (genre: string) => {
-    handleCloseGenreMenu();
     navigate(`/genre/${genre.toLowerCase()}`);
   };
 
@@ -78,39 +60,12 @@ export default function Header({
               >
                 Home
               </Button>
-
-              <Button
-                aria-controls={isMenuOpen ? 'genre-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={isMenuOpen ? 'true' : undefined}
-                onClick={handleOpenGenreMenu}
-                endIcon={<ArrowDropDownIcon />}
-                sx={{ color: 'text.secondary', px: { xs: 1, sm: 1.5 } }}
-              >
-                Genre
-              </Button>
-
-              <Menu
-                id="genre-menu"
-                anchorEl={anchorEl}
-                open={isMenuOpen}
-                onClose={handleCloseGenreMenu}
-                slotProps={{
-                  paper: {
-                    elevation: 3,
-                    sx: { mt: 1, minWidth: 140 },
-                  },
-                }}
-              >
-                {GENRES.map((genre) => (
-                  <MenuItem
-                    key={genre}
-                    onClick={() => handleSelectGenre(genre)}
-                  >
-                    {genre}
-                  </MenuItem>
-                ))}
-              </Menu>
+              
+              <DropDownMenu
+                label="Genre"
+                items={GENRES}
+                onSelect={handleSelectGenre}
+              />
             </Box>
           </Box>
 
@@ -125,13 +80,12 @@ export default function Header({
           >
             <Box
               sx={{
-                width: { xs: '35%', sm: '30%', md: '25%' },
-                maxWidth: 190,
-                minWidth: 120,
-                height: 40,
+                width: { xs: '100%', sm: 180, md: 227 },
+                height: { xs: 40, sm: 44, md: 48 },
+                maxWidth: 227,
                 border: '1px solid',
                 borderColor: 'divider',
-                borderRadius: 20,
+                borderRadius: 60,
                 display: 'flex',
                 alignItems: 'center',
                 px: { xs: 1, sm: 1.5 },

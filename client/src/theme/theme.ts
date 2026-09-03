@@ -1,5 +1,11 @@
 import { createTheme } from '@mui/material/styles';
 
+declare module '@mui/material/styles' {
+  interface TypeText {
+    darkerGray: string;
+  }
+}
+
 const muiTheme = createTheme({
   palette: {
     mode: 'light',
@@ -14,6 +20,10 @@ const muiTheme = createTheme({
       main: '#1E88E5',
     },
 
+    warning: {
+      main: '#FFC107',
+    },
+
     background: {
       default: '#F8F9FA',
       paper: '#FFFFFF',
@@ -22,6 +32,7 @@ const muiTheme = createTheme({
     text: {
       primary: '#123B63',
       secondary: '#8A8A8A',
+      darkerGray: '#697586',
     },
 
     divider: '#E5E5E5',
@@ -42,6 +53,7 @@ const muiTheme = createTheme({
   },
 
   components: {
+
     MuiCssBaseline: {
       styleOverrides: {
         body: {

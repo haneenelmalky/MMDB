@@ -42,6 +42,13 @@ const muiTheme = createTheme({
   },
 
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          margin: 0,
+        },
+      },
+    },
     MuiAppBar: {
       defaultProps: {
         elevation: 0,
@@ -77,6 +84,33 @@ const muiTheme = createTheme({
 
           '&:hover': {
             boxShadow: 'none',
+          },
+        },
+
+        outlined: {
+          borderColor: '#E5E5E5',
+          color: '#123B63',
+
+          '&:hover': {
+            borderColor: '#418CFB',
+            backgroundColor: 'transparent',
+          },
+        },
+      },
+    },
+
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected': {
+            backgroundColor: '#FFFFFF',
+            color: '#418CFB',
+            border: '1px solid #418CFB',
+            fontWeight: 700,
+          },
+
+          '&.Mui-selected:hover': {
+            backgroundColor: '#FFFFFF',
           },
         },
       },

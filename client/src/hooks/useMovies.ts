@@ -4,26 +4,19 @@ import {
   useState,
 } from 'react';
 
-import type {
-  Movie,
-  MovieDetails,
-  MoviesResponse,
-  SortOrder,
-} from '../types/movies';
+import type { MovieDetails } from '../types/movies';
 
-interface UseMoviesParams {
-  page: number;
-  limit: number;
-  sortOrder: SortOrder;
-}
+import type { MoviesResponse } from '../types/movies-response';
+
+import type { UseMoviesParams } from '../types/movies-request';
 
 export const useMovies = ({
   page,
   limit,
   sortOrder,
 }: UseMoviesParams) => {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [totalPages, setTotalPages] = useState(0);
+  const [moviesResponse, setMoviesResponse] =
+    useState<MoviesResponse | null>(null);
 
   const [loading, setLoading] = useState(true);
 
@@ -48,8 +41,7 @@ export const useMovies = ({
 
       const data: MoviesResponse = await response.json();
 
-      setMovies(data.data);
-      setTotalPages(data.meta.totalPages);
+      setMoviesResponse(data);
     } catch (err: unknown) {
       const message =
         err instanceof Error
@@ -57,8 +49,7 @@ export const useMovies = ({
           : 'Something went wrong';
 
       setError(message);
-      setMovies([]);
-      setTotalPages(0);
+      setMoviesResponse(null);
     } finally {
       setLoading(false);
     }
@@ -67,6 +58,9 @@ export const useMovies = ({
   useEffect(() => {
     fetchMovies();
   }, [fetchMovies]);
+
+  const movies = moviesResponse?.data ?? [];
+  const totalPages = moviesResponse?.meta.totalPages ?? 0;
 
   return {
     movies,
@@ -78,7 +72,7 @@ export const useMovies = ({
   };
 };
 
-export const useMovie = (id: number) => {
+export const useMovie = (uuid: string) => {
   const [movie, setMovie] = useState<MovieDetails | null>(
     null,
   );
@@ -90,12 +84,17 @@ export const useMovie = (id: number) => {
   );
 
   const fetchMovie = useCallback(async () => {
+    if (!uuid) {
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     try {
       const response = await fetch(
-        `http://localhost:3000/movies/${id}`,
+        `http://localhost:3000/movies/${uuid}`,
       );
 
       if (!response.ok) {
@@ -118,7 +117,7 @@ export const useMovie = (id: number) => {
     } finally {
       setLoading(false);
     }
-  }, [id]);
+  }, [uuid]);
 
   useEffect(() => {
     fetchMovie();

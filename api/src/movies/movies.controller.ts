@@ -2,7 +2,6 @@ import {
   Controller,
   Get,
   Param,
-  ParseIntPipe,
   Query,
 } from '@nestjs/common';
 
@@ -20,10 +19,8 @@ export class MoviesController {
     return this.moviesService.findAll(query);
   }
 
-  @Get(':id')
-  findOne(
-    @Param('id', ParseIntPipe) id: number,
-  ) {
-    return this.moviesService.findOne(id);
+  @Get(':uuid')
+  findOne(@Param('uuid') uuid: string) {
+    return this.moviesService.findOne(uuid);
   }
 }

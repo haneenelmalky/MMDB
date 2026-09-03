@@ -46,7 +46,7 @@ function App() {
               />
 
               <Route
-                path="/movies/:id"
+                path="/movies/:uuid"
                 element={<MovieDetails />}
               />
             </Routes>

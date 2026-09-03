@@ -9,19 +9,21 @@ export interface Movie {
   rating: number;
 }
 
+export interface CastMember {
+  id: number;
+  actorName: string;
+  characterName: string;
+  actorImageUrl: string | null;
+}
+
 export interface MovieDetails extends Movie {
   runtimeMinutes: number | null;
   overview: string | null;
   trailerUrl: string | null;
   language: string | null;
-}
-
-export interface MoviesResponse {
-  data: Movie[];
-  meta: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-  };
+  director: string | null;
+  writer: string | null;
+  genres: string[] | null;
+  reviewsCount: number;
+  cast?: CastMember[];
 }

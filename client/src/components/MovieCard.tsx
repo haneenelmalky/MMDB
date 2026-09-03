@@ -22,7 +22,7 @@ export const MovieCard = ({
   return (
     <Card
       component={RouterLink}
-      to={`/movies/${movie.id}`}
+      to={`/movies/${movie.uuid}`}
       sx={{
         height: '100%',
         p: 1.5,

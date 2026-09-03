@@ -1,6 +1,10 @@
-import { IsOptional, IsInt, Min, IsString, IsIn } from 'class-validator';
+import { IsOptional, IsInt, Min, IsEnum } from 'class-validator';
 import { Type, Transform } from 'class-transformer';
 
+export enum SortOrder {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
 export class GetMoviesQueryDto {
   @IsOptional()
   @Type(() => Number)
@@ -13,12 +17,9 @@ export class GetMoviesQueryDto {
   @IsInt()
   @Min(1)
   limit?: number = 8;
-  
-  readonly sortBy: string = 'releaseYear';
 
   @IsOptional()
-  @IsString()
-  @IsIn(['ASC', 'DESC', 'asc', 'desc'])
+  @IsEnum(SortOrder)
   @Transform(({ value }) => value?.toUpperCase())
-  order?: 'ASC' | 'DESC' = 'DESC'; 
+  order?: SortOrder = SortOrder.DESC;
 }

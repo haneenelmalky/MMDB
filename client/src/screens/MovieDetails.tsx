@@ -9,27 +9,25 @@ import { useParams } from 'react-router-dom';
 import { useMovie } from '../hooks/useMovies';
 
 const MovieDetails = () => {
-  const { id } = useParams();
-
-  const movieId = Number(id);
+  const { uuid } = useParams();
 
   const {
     movie,
     loading,
     error,
-  } = useMovie(movieId);
+  } = useMovie(uuid ?? '');
 
   if (loading) {
     return (
       <Stack
         sx={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            py: 8,
+          alignItems: 'center',
+          justifyContent: 'center',
+          py: 8,
         }}
-        >
+      >
         <CircularProgress />
-        </Stack>
+      </Stack>
     );
   }
 

@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Movie } from './movie.entity';
 import { GetMoviesQueryDto } from './dtos/get-movies.dto';
+import { MoviesResponse } from './types/movie-response';
 
 @Injectable()
 export class MoviesService {
@@ -14,7 +15,9 @@ export class MoviesService {
     private readonly movieRepository: Repository<Movie>,
   ) {}
 
-  async findAll(query: GetMoviesQueryDto) {
+  async findAll(
+    query: GetMoviesQueryDto,
+  ): Promise<MoviesResponse> {
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 8;
 
@@ -66,14 +69,14 @@ export class MoviesService {
     };
   }
 
-  async findOne(id: number) {
+  async findOne(uuid: string): Promise<Movie> {
     const movie = await this.movieRepository.findOne({
-      where: { id },
+      where: { uuid },
     });
 
     if (!movie) {
       throw new NotFoundException(
-        `Movie with id ${id} not found`,
+        `Movie with uuid ${uuid} not found`,
       );
     }
 
